@@ -1,0 +1,224 @@
+{
+  "_comment": "Sample investigation dataset for CaseGraph v1 — insurance fraud scenario",
+  "tenant": {
+    "name": "Acme Investigations",
+    "slug": "acme"
+  },
+  "users": [
+    {
+      "email": "admin@acme.example",
+      "display_name": "Alex Admin",
+      "role": "admin",
+      "password": "changeme123!"
+    },
+    {
+      "email": "investigator@acme.example",
+      "display_name": "Sarah Chen",
+      "role": "senior_investigator",
+      "password": "changeme123!"
+    },
+    {
+      "email": "analyst@acme.example",
+      "display_name": "Marcus Webb",
+      "role": "analyst",
+      "password": "changeme123!"
+    }
+  ],
+  "cases": [
+    {
+      "case_number": "CG-2024-00001",
+      "title": "Suspicious Insurance Claims — Robert Harlow",
+      "description": "Subject Robert Harlow filed three separate insurance claims within 6 months across different insurers. Pattern suggests possible staging of vehicle accidents. Risk score elevated due to overlapping device fingerprint across claim submissions.",
+      "status": "active_investigation",
+      "priority": "high",
+      "risk_score": 82.5,
+      "tags": ["insurance-fraud", "vehicle", "staged-accident"],
+      "notes": [
+        "Claim 1: Auto collision on I-95, March 2024. Insurer: NovaClaim. $42,000.",
+        "Claim 2: Totaled vehicle, different VIN, May 2024. Insurer: ShieldMutual. $38,500.",
+        "Claim 3: Hail damage claim, June 2024. Insurer: BlueRock. $12,000.",
+        "Same device fingerprint (mobile browser) detected across all three online submissions.",
+        "Cross-reference shows subject was previously flagged in 2021 for a similar pattern."
+      ]
+    },
+    {
+      "case_number": "CG-2024-00002",
+      "title": "Wire Fraud Network — Apex Capital LLC",
+      "description": "Shell company Apex Capital LLC received $1.2M in wire transfers across 14 transactions over 90 days, then dispersed funds to four accounts in three jurisdictions. Beneficial owner unknown.",
+      "status": "awaiting_evidence",
+      "priority": "critical",
+      "risk_score": 94.1,
+      "tags": ["wire-fraud", "shell-company", "money-laundering"],
+      "notes": [
+        "Apex Capital LLC registered in Delaware, March 2023. No physical office.",
+        "Receiving account at First National Bank opened with minimal KYC documentation.",
+        "Funds dispersed to: 2 accounts in Latvia, 1 in UAE, 1 in Wyoming.",
+        "Awaiting subpoena response from First National Bank for full transaction records.",
+        "Source of funds traced to three legitimate-looking consulting invoices — amounts do not match market rates."
+      ]
+    },
+    {
+      "case_number": "CG-2024-00003",
+      "title": "Cyber Incident — Phishing Campaign Targeting Employees",
+      "description": "Phishing emails targeting employees of Meridian Financial. 3 employees clicked links; 1 entered credentials. Unauthorized access to payroll system detected. Attacker origin: TOR exit node.",
+      "status": "triage",
+      "priority": "high",
+      "risk_score": 71.0,
+      "tags": ["cyber", "phishing", "credential-theft", "payroll"],
+      "notes": [
+        "Phishing domain: meridian-fin-secure[.]com — registered 72 hours before campaign.",
+        "Credential compromise detected via anomalous login from IP 195.22.131.88.",
+        "Payroll export of 847 employee records accessed on June 14, 2024 at 03:17 UTC.",
+        "No funds transferred yet — SOC team blocked outbound transfers.",
+        "Notified CISO and legal counsel. Incident report filed."
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "entity_type": "person",
+      "canonical_name": "Robert Harlow",
+      "risk_score": 82.5,
+      "is_flagged": true,
+      "tags": ["insurance-claimant", "repeat-offender-watch"],
+      "identifiers": [
+        { "id_type": "ssn", "id_value": "XXX-XX-4421", "confidence": 0.99 },
+        { "id_type": "phone", "id_value": "+1-555-0182", "confidence": 0.95 },
+        { "id_type": "email", "id_value": "r.harlow82@mailpro.net", "confidence": 0.90 }
+      ],
+      "aliases": ["Rob Harlow", "R. Harlow"],
+      "linked_cases": ["CG-2024-00001"]
+    },
+    {
+      "entity_type": "organization",
+      "canonical_name": "Apex Capital LLC",
+      "risk_score": 94.1,
+      "is_flagged": true,
+      "is_frozen": false,
+      "tags": ["shell-company", "high-risk"],
+      "identifiers": [
+        { "id_type": "ein", "id_value": "XX-7654321", "confidence": 0.99 },
+        { "id_type": "registration_number", "id_value": "DE-2023-5538812", "confidence": 0.99 }
+      ],
+      "linked_cases": ["CG-2024-00002"]
+    },
+    {
+      "entity_type": "account",
+      "canonical_name": "First National Bank — ACC-88124",
+      "risk_score": 76.0,
+      "is_flagged": true,
+      "identifiers": [
+        { "id_type": "iban", "id_value": "US88FNBK0012344881240", "confidence": 0.99 },
+        { "id_type": "swift", "id_value": "FNBKUS44", "confidence": 0.99 }
+      ],
+      "linked_cases": ["CG-2024-00002"]
+    },
+    {
+      "entity_type": "account",
+      "canonical_name": "Baltic Finance — ACC-55LV9201",
+      "risk_score": 68.0,
+      "is_flagged": true,
+      "identifiers": [
+        { "id_type": "iban", "id_value": "LV55BALT0000001234567", "confidence": 0.95 }
+      ],
+      "linked_cases": ["CG-2024-00002"]
+    },
+    {
+      "entity_type": "device",
+      "canonical_name": "Chrome/Mobile — Fingerprint A7F2B9",
+      "risk_score": 55.0,
+      "is_flagged": false,
+      "identifiers": [
+        { "id_type": "device_fingerprint", "id_value": "A7F2B9C41D", "confidence": 0.88 }
+      ],
+      "linked_cases": ["CG-2024-00001"]
+    },
+    {
+      "entity_type": "device",
+      "canonical_name": "TOR Exit Node — 195.22.131.88",
+      "risk_score": 90.0,
+      "is_flagged": true,
+      "identifiers": [
+        { "id_type": "ip_address", "id_value": "195.22.131.88", "confidence": 1.0 }
+      ],
+      "linked_cases": ["CG-2024-00003"]
+    },
+    {
+      "entity_type": "location",
+      "canonical_name": "3812 Elmwood Drive, Tampa FL 33602",
+      "risk_score": 20.0,
+      "identifiers": [
+        { "id_type": "address", "id_value": "3812 Elmwood Drive, Tampa, FL 33602", "confidence": 0.99 }
+      ],
+      "linked_cases": ["CG-2024-00001"]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Robert Harlow",
+      "target": "Chrome/Mobile — Fingerprint A7F2B9",
+      "type": "PERSON_USED_DEVICE",
+      "confidence": 0.88,
+      "properties": { "context": "All three insurance claim submissions" }
+    },
+    {
+      "source": "Apex Capital LLC",
+      "target": "First National Bank — ACC-88124",
+      "type": "PERSON_OWNS_ACCOUNT",
+      "confidence": 0.99,
+      "properties": { "account_role": "primary" }
+    },
+    {
+      "source": "First National Bank — ACC-88124",
+      "target": "Baltic Finance — ACC-55LV9201",
+      "type": "ACCOUNT_SENT_TRANSACTION",
+      "confidence": 0.99,
+      "properties": {
+        "total_amount_usd": 380000,
+        "transaction_count": 4,
+        "date_range": "2024-03-01 to 2024-05-15"
+      }
+    },
+    {
+      "source": "TOR Exit Node — 195.22.131.88",
+      "target": "Robert Harlow",
+      "type": "ENTITY_LINKED_TO_ENTITY",
+      "confidence": 0.40,
+      "properties": { "note": "Possible connection under investigation — not confirmed" }
+    }
+  ],
+  "transactions": [
+    {
+      "id": "TXN-001",
+      "from_account": "First National Bank — ACC-88124",
+      "to_account": "Baltic Finance — ACC-55LV9201",
+      "amount_usd": 95000,
+      "date": "2024-03-12",
+      "reference": "CONSULTING-INV-001"
+    },
+    {
+      "id": "TXN-002",
+      "from_account": "First National Bank — ACC-88124",
+      "to_account": "Baltic Finance — ACC-55LV9201",
+      "amount_usd": 95000,
+      "date": "2024-03-29",
+      "reference": "CONSULTING-INV-002"
+    },
+    {
+      "id": "TXN-003",
+      "from_account": "First National Bank — ACC-88124",
+      "to_account": "Baltic Finance — ACC-55LV9201",
+      "amount_usd": 95000,
+      "date": "2024-04-18",
+      "reference": "CONSULTING-INV-003"
+    },
+    {
+      "id": "TXN-004",
+      "from_account": "First National Bank — ACC-88124",
+      "to_account": "Baltic Finance — ACC-55LV9201",
+      "amount_usd": 95000,
+      "date": "2024-05-10",
+      "reference": "CONSULTING-INV-004"
+    }
+  ]
+}
