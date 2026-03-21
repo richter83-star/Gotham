@@ -1,3 +1,6 @@
+import { Search, FolderOpen, Users, AlertCircle, Settings, History as HistoryIcon, Activity } from "lucide-react";
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="flex h-screen bg-[#050508] relative overflow-hidden bg-grid">
@@ -26,7 +29,7 @@ export default function Home() {
 
         <div className="mt-auto space-y-2 pt-6 border-t border-white/5">
           <NavItem icon={<Settings size={20} />} label="Settings" />
-          <NavItem icon={<History size={20} />} label="Audit Log" />
+          <NavItem icon={<HistoryIcon size={20} />} label="Audit Log" />
         </div>
       </aside>
 
