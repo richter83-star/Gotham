@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "D:\Gotham\apps\api\main.py", line 14, in <module>
+    app.include_router(v1_router, prefix="/api/v1")
+  File "C:\Users\17146\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\applications.py", line 1447, in include_router
+    self.router.include_router(
+  File "C:\Users\17146\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\routing.py", line 1222, in include_router
+    for route in router.routes:
+                 ^^^^^^^^^^^^^
+AttributeError: module 'app.api.router' has no attribute 'routes'. Did you mean: 'router'?

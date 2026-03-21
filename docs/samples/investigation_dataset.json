@@ -1,0 +1,61 @@
+{
+  "cases": [
+    {
+      "id": "CS-2026-0032",
+      "title": "Operation Midnight Prowl",
+      "status": "ACTIVE",
+      "priority": "HIGH",
+      "description": "Suspected coordinate theft of digital assets from Wayne Enterprises secondary accounts.",
+      "assignee": "Bruce Wayne",
+      "entities": ["E-101", "E-102", "E-103", "E-104", "E-105"]
+    }
+  ],
+  "entities": [
+    {
+      "id": "E-101",
+      "name": "Selina Kyle",
+      "type": "PERSON",
+      "risk_score": 0.85,
+      "aliases": ["The Cat", "S.K."],
+      "connections": [
+        { "to": "E-102", "type": "USED_DEVICE", "confidence": 1.0 },
+        { "to": "E-103", "type": "ASSOCIATED_WITH", "confidence": 0.94 },
+        { "to": "E-104", "type": "BUSINESS_ASSOCIATE", "confidence": 0.72 }
+      ]
+    },
+    {
+      "id": "E-102",
+      "name": "Modified Laptop X-1",
+      "type": "DEVICE",
+      "risk_score": 0.92,
+      "identifiers": { "MAC": "00:1A:2B:3C:4D:5E" }
+    },
+    {
+      "id": "E-103",
+      "name": "The Iceberg Lounge",
+      "type": "ORGANIZATION",
+      "risk_score": 0.65,
+      "location": "Gotham Docklands"
+    },
+    {
+      "id": "E-104",
+      "name": "Oswald Cobblepot",
+      "type": "PERSON",
+      "risk_score": 0.78,
+      "aliases": ["The Penguin"]
+    },
+    {
+      "id": "E-105",
+      "name": "Wayne Enterprises Server Hub 4",
+      "type": "LOCATION",
+      "risk_score": 0.1,
+      "location": "Gotham Financial District"
+    }
+  ],
+  "timeline": [
+    { "timestamp": "2026-03-20T02:00:00Z", "event": "Unauthorized access detected in Sub-level 4", "entities": ["E-102", "E-105"], "source": "Internal Alert" },
+    { "timestamp": "2026-03-20T04:15:00Z", "event": "Ping from known alias 'The Cat' at Docklands", "entities": ["E-101", "E-103"], "source": "Signal Intercept" },
+    { "timestamp": "2026-03-20T08:30:00Z", "event": "Case priority escalated to HIGH", "entities": ["E-101"], "source": "System Policy" },
+    { "timestamp": "2026-03-20T10:00:00Z", "event": "Financial transaction match: Oswald Cobblepot -> The Iceberg Lounge", "entities": ["E-104", "E-103"], "source": "Banking Intelligence" }
+  ]
+}
