@@ -4,11 +4,20 @@ import { useParams } from "next/navigation";
 import { Users, AlertTriangle, Briefcase, ChevronRight, ShieldCheck, Fingerprint, MapPin, Globe, Zap, FileText } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { TechnicalReconCard } from "@/features/intel/TechnicalReconCard";
 
 export default function EntityProfile() {
   const params = useParams();
   const entityId = params.id as string;
-  const [activeTab, setActiveTab] = useState<"overview" | "analysis" | "osint">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "analysis" | "osint" | "technical">("overview");
+
+  const mockTechData = {
+    ports: [80, 443, 8080, 22, 3306],
+    vulns: ["CVE-2021-41773", "CVE-2024-1234"],
+    org: "Wayne Enterprises Digital Division",
+    os: "Hardened GothamOS 4.2",
+    ip: "10.0.42.102"
+  };
 
   return (
     <main className="flex h-screen bg-[#050508] relative overflow-hidden bg-grid">
@@ -52,11 +61,17 @@ export default function EntityProfile() {
         <div className="h-14 flex items-center px-12 gap-10 border-b border-white/5 bg-white/[0.01]">
            <TabButton active={activeTab === "overview"} onClick={() => setActiveTab("overview")} label="Intelligence Overview" />
            <TabButton active={activeTab === "analysis"} onClick={() => setActiveTab("analysis")} label="Correlation Analysis" />
-           <TabButton active={activeTab === "osint"} onClick={() => setActiveTab("osint")} label="OSINT Discovery" highlight />
+           <TabButton active={activeTab === "osint"} onClick={() => setActiveTab("osint")} label="OSINT Discovery" />
+           <TabButton active={activeTab === "technical"} onClick={() => setActiveTab("technical")} label="Technical Recon" highlight />
         </div>
 
         <div className="flex-1 overflow-auto p-12">
-           <div className="max-w-7xl mx-auto grid grid-cols-12 gap-10">
+           {activeTab === "technical" ? (
+               <div className="max-w-4xl mx-auto">
+                    <TechnicalReconCard data={mockTechData} />
+               </div>
+           ) : (
+               <div className="max-w-7xl mx-auto grid grid-cols-12 gap-10">
               {/* Main Attributes */}
               <div className="col-span-8 space-y-12">
                  <section>
@@ -103,6 +118,7 @@ export default function EntityProfile() {
                  </section>
               </div>
            </div>
+           )}
         </div>
       </div>
     </main>
