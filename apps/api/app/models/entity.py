@@ -23,8 +23,19 @@ class Entity(Base, IDMixin, TimestampMixin):
     
     # Relationships
     tenant: Mapped["Tenant"] = relationship(back_populates="entities")
-
     cases: Mapped[List["Case"]] = relationship(secondary="case_entities", back_populates="entities")
+    discovery_records: Mapped[List["DiscoveryRecord"]] = relationship(back_populates="entity", cascade="all, delete-orphan")
+
+class DiscoveryRecord(Base, IDMixin, TimestampMixin):
+    __tablename__ = "discovery_records"
+    entity_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("entities.id"), nullable=False)
+    source_name: Mapped[str] = mapped_column(String(50), nullable=False) # Google, LinkedIn, etc.
+    url: Mapped[Optional[str]] = mapped_column(String(1024))
+    snippet: Mapped[Optional[str]] = mapped_column(String(2048))
+    confidence: Mapped[float] = mapped_column(Float, default=1.0)
+    metadata_json: Mapped[Optional[Dict[str, Any]]] = mapped_column(JSON)
+    
+    entity: Mapped["Entity"] = relationship(back_populates="discovery_records")
 
 class CaseEntity(Base):
     __tablename__ = "case_entities"
