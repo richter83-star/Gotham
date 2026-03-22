@@ -19,8 +19,12 @@ export default function Home() {
 
         <nav className="flex-1 space-y-2">
           <NavItem icon={<Search size={20} />} label="Global Search" active />
-          <NavItem icon={<FolderOpen size={20} />} label="Case Queue" />
-          <NavItem icon={<Users size={20} />} label="Entities" />
+          <Link href="/cases" className="w-full">
+            <NavItem icon={<FolderOpen size={20} />} label="Case Queue" active />
+          </Link>
+          <Link href="/entities" className="w-full">
+            <NavItem icon={<Users size={20} />} label="Object Explorer" />
+          </Link>
           <NavItem icon={<AlertCircle size={20} />} label="Alerts" />
           <Link href="/admin/rules" className="block">
             <NavItem icon={<Activity size={20} />} label="Rules Engine" />
@@ -64,8 +68,12 @@ export default function Home() {
             </header>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <StatsCard title="Pending Cases" value="24" color="text-amber-400" subtitle="+3 since last sync" />
-              <StatsCard title="Open Alerts" value="156" color="text-rose-500" subtitle="12 Critical priority" />
+              <Link href="/cases">
+                <StatsCard title="Active Investigations" value="12" color="text-primary" subtitle="Central Command" />
+              </Link>
+              <Link href="/entities">
+                <StatsCard title="Tracked Objects" value="1,248" color="text-accent" subtitle="Global Intel" />
+              </Link>
               <StatsCard title="Action Items" value="12" color="text-blue-400" subtitle="Awaiting human triage" />
             </div>
 
